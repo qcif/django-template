@@ -79,13 +79,14 @@ echo
 echo "✅ Project initialization complete!"
 echo
 echo "Next steps:"
-echo "1. cd $PROJECT_NAME"
-echo "2. Create and activate a virtual environment"
-echo "3. pip install -r requirements.txt"
-echo "4. Copy .env.sample to .env and configure your environment variables"
-echo "5. python manage.py migrate"
-echo "6. python manage.py createsuperuser"
-echo "7. python manage.py runserver"
+echo "1. Git commit your project name"
+echo "2. cd $PROJECT_NAME"
+echo "3. Create and activate a virtual environment"
+echo "4. pip install -r requirements.txt"
+echo "5. Copy .env.sample to .env and configure your environment variables"
+echo "6. python manage.py migrate"
+echo "7. python manage.py createsuperuser"
+echo "8. python manage.py runserver"
 echo
 echo "Happy coding! 🚀"
 echo
