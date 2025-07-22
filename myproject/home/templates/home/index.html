@@ -1,0 +1,29 @@
+{% extends "home/header.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2>Welcome to myproject</h2>
+        <p class="lead">This is a template Django project with some nice presets.</p>
+        <p>Features included:</p>
+        <ul>
+            <li>Custom User model with email authentication</li>
+            <li>Modular settings (base.py and prod.py)</li>
+            <li>Bootstrap 5, jQuery, and Popper.js</li>
+            <li>Cache-busting static files with manifest static files storage</li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Quick Links</h5>
+            </div>
+            <div class="card-body">
+                <a href="/admin/" class="btn btn-primary d-block mb-2">Admin Panel</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
