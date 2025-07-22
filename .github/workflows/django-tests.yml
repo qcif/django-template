@@ -1,0 +1,60 @@
+name: Django tests
+
+on:
+  push:
+    branches: [ "main", "dev" ]
+  pull_request:
+    branches: [ "main", "dev" ]
+
+env:
+  DJANGO_SECRET_KEY: secret
+  HOSTNAME: 127.0.0.1:8000
+  MAIL_FROM_ADDRESS: ""
+  MAIL_TO_ADDRESS: ""
+  MAIL_USE_TLS: true
+  MAIL_HOSTNAME: ""
+  MAIL_SMTP_PORT: 2525
+  MAIL_SMTP_USERNAME: ""
+  MAIL_SMTP_PASSWORD: ""
+  RECAPTCHA_SITE_KEY: ""
+  RECAPTCHA_SECRET_KEY: ""
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: ["3.11", "3.12"]
+    outputs:
+      branch: ${{ github.ref_name }}
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.ref }}
+
+    - name: Check if event is a push to PR branch
+      id: check_event
+      run: |
+        if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.head_ref }}" != "" ]; then
+          echo "Skipping duplicate workflow run for push to PR branch."
+          exit 78  # Exit with neutral status to mark as skipped
+        fi
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+      if: success()
+
+    - name: Install Dependencies
+      if: success()
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run Tests
+      if: success()
+      run: |
+        cd myproject && python manage.py test
